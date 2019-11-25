@@ -1,25 +1,11 @@
-## Put comments here that give an overall description of what your
-## functions do
-
-## Write a short comment describing this function
-
-makeCacheMatrix <- function(x = matrix()) {
-
-}
-
-
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-}
 ## Caching the Inverse of a Matrix:
-## Matrix inversion is usually a costly computation and there may be some 
-## benefit to caching the inverse of a matrix rather than compute it repeatedly.
-## Below are a pair of functions that are used to create a special object that 
-## stores a matrix and caches its inverse.
+## Matrix inversion is usually a costly computation and there may be some benefit to caching the inverse of a matrix rather than compute it repeatedly.
+## Below are two pairs of functions:
+## 1. makeCacheMatrix - that creates a special "matrix" object that can cache its inverse,
+## 2.cacheSolve - that computes the inverse of the special "matrix" retuned by makeCacheMatrix. If the inverse has already been calculated (and the 
+## matrix has not changed), then it should retrieve the inverse from the cache.
 
-## This function creates a special "matrix" object that can cache its inverse.
+## 1. makeCacheMatrix: 
 
 makeCacheMatrix <- function(x = matrix()) {
         inv <- NULL
@@ -36,10 +22,7 @@ makeCacheMatrix <- function(x = matrix()) {
              getInverse = getInverse)
 }
 
-
-## This function computes the inverse of the special "matrix" created by 
-## makeCacheMatrix above. If the inverse has already been calculated (and the 
-## matrix has not changed), then it should retrieve the inverse from the cache.
+## 2.cacheSolve 
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
@@ -53,7 +36,8 @@ cacheSolve <- function(x, ...) {
         x$setInverse(inv)
         inv
 }
-Testing 
+## Testing of makeCacheMatrix and cacheSolve functions:
+
 > source("ProgrammingAssignment2/cachematrix.R")
 > my_matrix <- makeCacheMatrix(matrix(1:4, 2, 2))
 > my_matrix$get()
@@ -66,33 +50,22 @@ NULL
      [,1] [,2]
 [1,]   -2  1.5
 [2,]    1 -0.5
-> cacheSolve(my_matrix)
-getting cached data
-     [,1] [,2]
-[1,]   -2  1.5
-[2,]    1 -0.5
 > my_matrix$getInverse()
      [,1] [,2]
 [1,]   -2  1.5
 [2,]    1 -0.5
-> my_matrix$set(matrix(c(2, 2, 1, 4), 2, 2))
+> my_matrix$set(matrix(c(4, 3, 1, 4), 2, 2))
 > my_matrix$get()
      [,1] [,2]
-[1,]    2    1
-[2,]    2    4
+[1,]    4    1
+[2,]    3    4
 > my_matrix$getInverse()
 NULL
 > cacheSolve(my_matrix)
-           [,1]       [,2]
-[1,]  0.6666667 -0.1666667
-[2,] -0.3333333  0.3333333
-> cacheSolve(my_matrix)
-getting cached data
-           [,1]       [,2]
-[1,]  0.6666667 -0.1666667
-[2,] -0.3333333  0.3333333
+           [,1]        [,2]
+[1,]  0.3076923 -0.07692308
+[2,] -0.2307692  0.30769231
 > my_matrix$getInverse()
-           [,1]       [,2]
-[1,]  0.6666667 -0.1666667
-[2,] -0.3333333  0.3333333
-
+           [,1]        [,2]
+[1,]  0.3076923 -0.07692308
+[2,] -0.2307692  0.30769231
